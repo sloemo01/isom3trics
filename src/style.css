@@ -1,0 +1,16 @@
+html, body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #f6f4ee;
+}
+canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+  cursor: grab;
+}
+canvas:active { cursor: grabbing; }
+canvas:focus-visible { outline: 1px solid #b7c3ad; outline-offset: -1px; }
