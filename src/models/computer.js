@@ -44,7 +44,9 @@ export function createComputer(look, materials) {
   }
   box(monitor, [0.4, 0.15, 0.06], [-0.59, 1.32, -0.88], materials.black, 0.016, 'video-port');
   box(monitor, [0.22, 0.13, 0.07], [-0.05, 1.32, -0.88], materials.black, 0.016, 'power-port');
-  tube(group, [[-0.5, 1.32, -1.3], [-0.5, 0.5, -1.58], [0.12, 0.08, -1.52], [0.32, 0.065, -1.13]], 0.038, materials.dark, 'power-cable');
+  const cableMaterial = look.flat('#4d5850');
+  cableMaterial.userData.isom3tricsInk = { visible: false, weight: 0, depth: 0, normal: 0 };
+  tube(group, [[-0.5, 1.32, -1.3], [-0.5, 0.5, -1.58], [0.12, 0.08, -1.52], [0.32, 0.065, -1.13]], 0.032, cableMaterial, 'power-cable');
 
   const keyboard = new THREE.Group();
   keyboard.name = 'keyboard-assembly';
@@ -59,13 +61,15 @@ export function createComputer(look, materials) {
       const x = (col - (count - 1) / 2) * 0.166;
       const z = -0.275 + row * 0.165;
       const special = (row === 0 && col === 0) || (row === 2 && col >= 10);
-      box(keyboard, [0.13, 0.065, 0.12], [x, 0.31, z], special ? materials.secondary : materials.paper, 0.012, `key-${row}-${col}`);
+      const keyMaterial = (special ? materials.secondary : materials.paper).clone();
+      keyMaterial.userData.isom3tricsInk = { visible: true, weight: 0.48, depth: 0, normal: 0.5 };
+      box(keyboard, [0.13, 0.065, 0.12], [x, 0.31, z], keyMaterial, 0.012, `key-${row}-${col}`);
     }
   }
   box(keyboard, [0.94, 0.065, 0.12], [0, 0.31, 0.375], materials.paper, 0.015, 'spacebar');
   box(keyboard, [0.13, 0.065, 0.12], [-0.84, 0.31, 0.375], materials.accent, 0.015, 'return-key');
   box(keyboard, [0.13, 0.065, 0.12], [0.84, 0.31, 0.375], materials.secondary, 0.015, 'shift-key');
-  tube(group, [[-0.65, 0.13, 1.13], [-0.8, 0.09, 0.91], [-0.1, 0.055, 0.65], [0.4, 0.1, 0.2], [0.27, 0.73, 0.0]], 0.026, materials.dark, 'keyboard-cable');
+  tube(group, [[-0.65, 0.13, 1.13], [-0.8, 0.09, 0.91], [-0.1, 0.055, 0.65], [0.4, 0.1, 0.2], [0.27, 0.73, 0.0]], 0.024, cableMaterial, 'keyboard-cable');
 
   const mouse = new THREE.Group();
   mouse.name = 'mouse-assembly';
@@ -76,7 +80,7 @@ export function createComputer(look, materials) {
   box(mouse, [0.22, 0.07, 0.33], [-0.125, 0.245, -0.14], materials.shell, 0.05, 'mouse-left');
   box(mouse, [0.22, 0.07, 0.33], [0.125, 0.245, -0.14], materials.shell, 0.05, 'mouse-right');
   cylinder(mouse, 0.044, 0.1, [0, 0.3, -0.12], materials.dark, { rotation: [0, 0, Math.PI / 2], segments: 16, name: 'mouse-wheel' });
-  tube(group, [[1.43, 0.15, 1.17], [1.48, 0.06, 0.84], [1.17, 0.045, 0.56], [0.67, 0.08, 0.36], [0.65, 0.9, 0.12]], 0.024, materials.dark, 'mouse-cable');
+  tube(group, [[1.43, 0.15, 1.17], [1.48, 0.06, 0.84], [1.17, 0.045, 0.56], [0.67, 0.08, 0.36], [0.65, 0.9, 0.12]], 0.023, cableMaterial, 'mouse-cable');
 
   group.userData.parts = ['monitor-housing', 'front-bezel', 'crt-screen', 'monitor-foot', 'swivel-neck', 'side-vent-0', 'rear-service-panel', 'video-port', 'power-cable', 'keyboard-case', 'key-0-0', 'spacebar', 'keyboard-cable', 'mouse-shell', 'mouse-left', 'mouse-wheel', 'mouse-cable'];
   return group;

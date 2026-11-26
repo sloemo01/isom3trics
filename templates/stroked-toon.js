@@ -42,6 +42,7 @@ const vertexShader = /* glsl */`
 const edgeShader = /* glsl */`
   uniform sampler2D tNormal;
   uniform sampler2D tDepth;
+  uniform sampler2D tInk;
   uniform vec2 texel;
   uniform float nearClip;
   uniform float farClip;
@@ -56,6 +57,11 @@ const edgeShader = /* glsl */`
     float d = linearDepth(texture2D(tDepth, vUv).r);
     vec3 n = texture2D(tNormal, vUv).rgb * 2.0 - 1.0;
     float a = texture2D(tNormal, vUv).a;
+    vec3 inkAttributes = texture2D(tInk, vUv).rgb;
+    float weight = inkAttributes.r;
+    float depthAllowance = inkAttributes.g;
+    float normalAllowance = inkAttributes.b;
+    if (a < 0.5 || weight < 0.001) discard;
     float edge = 0.0;
     // One-physical-texel samples only. Never dilate the edge mask: dilation
     // merges keyboard keys, vents and bezels into dark bands at small scale.
@@ -65,13 +71,17 @@ const edgeShader = /* glsl */`
       float nd = linearDepth(texture2D(tDepth, uv).r);
       vec3 nn = texture2D(tNormal, uv).rgb * 2.0 - 1.0;
       float na = texture2D(tNormal, uv).a;
+      vec3 neighborInk = texture2D(tInk, uv).rgb;
+      float neighborWeight = neighborInk.r;
       // A signed occlusion test is a clean contact/silhouette edge; symmetric
       // absolute depth deltas ink BOTH sides and double the apparent width.
       float occluded = max(0.0, d - nd);
-      float depthEdge = smoothstep(0.0005, 0.0018, occluded);
-      float normalEdge = (1.0 - smoothstep(0.55, 0.86, dot(n, nn))) * min(a, na);
+      float depthEdge = smoothstep(0.0005, 0.0018, occluded) * depthAllowance;
+      float normalEdge = (1.0 - smoothstep(0.4, 0.76, dot(n, nn))) * min(a, na) * normalAllowance;
+      // The zero-weight region itself is the outer edge; never dilate inward.
       float silhouette = abs(a - na) * step(0.5, a + na);
-      edge = max(edge, max(depthEdge * min(a, na), max(normalEdge, silhouette)));
+      float pairWeight = min(weight, na > 0.5 ? neighborWeight : 1.0);
+      edge = max(edge, max(depthEdge * min(a, na), max(normalEdge, silhouette)) * pairWeight);
     }
     gl_FragColor = vec4(vec3(edge * 0.82), 1.0);
   }
@@ -116,10 +126,17 @@ export function createStrokedToon(renderer, {
   const normalTarget = new THREE.WebGLRenderTarget(1, 1, { samples: 4, depthBuffer: true });
   normalTarget.depthTexture = new THREE.DepthTexture(1, 1, THREE.UnsignedIntType);
   const normalMaterial = new THREE.MeshNormalMaterial();
+  const inkTarget = new THREE.WebGLRenderTarget(1, 1, { depthBuffer: true });
+  inkTarget.depthTexture = normalTarget.depthTexture;
+  const inkMaterial = new THREE.ShaderMaterial({
+    vertexShader: `void main() { gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`,
+    fragmentShader: `uniform vec3 inkAttributes; void main() { gl_FragColor = vec4(inkAttributes, 1.0); }`,
+    uniforms: { inkAttributes: { value: new THREE.Vector3(1, 1, 1) } },
+  });
   const edgeMaterial = new THREE.ShaderMaterial({
     vertexShader, fragmentShader: edgeShader, depthTest: false, depthWrite: false,
     uniforms: {
-      tNormal: { value: normalTarget.texture }, tDepth: { value: normalTarget.depthTexture },
+      tNormal: { value: normalTarget.texture }, tDepth: { value: normalTarget.depthTexture }, tInk: { value: inkTarget.texture },
       texel: { value: new THREE.Vector2(1, 1) }, nearClip: { value: 0.1 }, farClip: { value: 100 }, orthographic: { value: 1 },
     },
   });
@@ -134,15 +151,17 @@ export function createStrokedToon(renderer, {
   passScene.add(quad);
   const passCamera = new THREE.Camera();
 
-  function toon(color, { outline = true, stroke: weight = 1, ...options } = {}) {
+  function toon(color, { outline = true, stroke: weight = 1, depth = 1, normal = 1, ...options } = {}) {
     const material = new THREE.MeshToonMaterial({ color, gradientMap: ramp, ...options });
     setToonOutline(material, outline, weight);
+    Object.assign(material.userData.isom3tricsInk, { depth, normal });
     ownedMaterials.add(material);
     return material;
   }
-  function flat(color, options = {}) {
+  function flat(color, { outline = false, stroke: weight = 1, depth = 0, normal = 0, ...options } = {}) {
     const material = new THREE.MeshBasicMaterial({ color, ...options });
-    setToonOutline(material, false);
+    setToonOutline(material, outline, weight);
+    Object.assign(material.userData.isom3tricsInk, { depth, normal });
     ownedMaterials.add(material);
     return material;
   }
@@ -155,7 +174,7 @@ export function createStrokedToon(renderer, {
   function resize() {
     const size = renderer.getDrawingBufferSize(new THREE.Vector2());
     width = Math.max(1, size.x); height = Math.max(1, size.y);
-    colorTarget.setSize(width, height); normalTarget.setSize(width, height); edgeTarget.setSize(width, height);
+    colorTarget.setSize(width, height); normalTarget.setSize(width, height); inkTarget.setSize(width, height); edgeTarget.setSize(width, height);
     syncStroke();
   }
   function render(scene, camera) {
@@ -175,6 +194,24 @@ export function createStrokedToon(renderer, {
     renderer.clear();
     renderer.render(scene, camera);
     scene.overrideMaterial = oldOverride;
+    // Per-material ink attributes let thin cables be solid strands and small
+    // keys keep subtle separation instead of the housing's full crease ink.
+    const replacements = [];
+    scene.traverse(object => {
+      if (!object.isMesh) return;
+      const material = object.material;
+      if (Array.isArray(material)) return;
+      const settings = material.userData.isom3tricsInk || { visible: true, weight: 1 };
+      const override = inkMaterial.clone();
+      override.uniforms.inkAttributes.value.set(settings.visible ? settings.weight : 0, settings.depth ?? 1, settings.normal ?? 1);
+      override.side = material.side;
+      replacements.push([object, material, override]);
+      object.material = override;
+    });
+    renderer.setRenderTarget(inkTarget);
+    renderer.clear();
+    renderer.render(scene, camera);
+    for (const [object, original, override] of replacements) { object.material = original; override.dispose(); }
     edgeMaterial.uniforms.nearClip.value = camera.near;
     edgeMaterial.uniforms.farClip.value = camera.far;
     edgeMaterial.uniforms.orthographic.value = camera.isOrthographicCamera ? 1 : 0;
@@ -198,8 +235,8 @@ export function createStrokedToon(renderer, {
     dispose() {
       for (const material of ownedMaterials) material.dispose();
       ownedMaterials.clear(); ramp.dispose();
-      colorTarget.dispose(); normalTarget.dispose(); edgeTarget.dispose();
-      normalMaterial.dispose(); edgeMaterial.dispose(); compositeMaterial.dispose(); quad.geometry.dispose();
+      colorTarget.dispose(); normalTarget.dispose(); inkTarget.dispose(); edgeTarget.dispose();
+      normalMaterial.dispose(); inkMaterial.dispose(); edgeMaterial.dispose(); compositeMaterial.dispose(); quad.geometry.dispose();
     },
   };
 }

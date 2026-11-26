@@ -64,11 +64,12 @@ test('renderer uses visible depth/normal geometry and restores scene overrides',
   const mesh = new THREE.Mesh(new THREE.BoxGeometry(), look.toon('#a9c4b1'));
   scene.add(mesh);
   look.render(scene, camera);
-  // One extra fullscreen pass isolates the edge mask from the composite.
-  assert.equal(renderer.passes.length, 4);
+  // Color, normals, material ink attributes, edge mask, then composite.
+  assert.equal(renderer.passes.length, 5);
   assert.equal(renderer.passes[0], scene);
   assert.equal(renderer.passes[1], scene);
-  assert.notEqual(renderer.passes[2], scene);
+  assert.equal(renderer.passes[2], scene);
+  assert.notEqual(renderer.passes[3], scene);
   assert.equal(scene.overrideMaterial, null);
   assert.equal(mesh.material.type, 'MeshToonMaterial');
   assert.equal(renderer.clearAlpha, 0);
