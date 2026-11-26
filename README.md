@@ -22,7 +22,15 @@ Each figure ships as one standalone HTML file. Three.js loads from a CDN; the ge
 
 ## Use the skill
 
-Give your coding agent this repository and ask it to read [`SKILL.md`](SKILL.md) before building. For example:
+Install it with npm, or copy the folder by hand:
+
+```bash
+npx isom3trics ./skills/isom3trics
+```
+
+That writes `SKILL.md`, the twenty examples, the gallery and the previews into the target. It adds no dependencies and runs nothing afterwards. `--list` prints what would be copied, and `--force` overwrites an existing install.
+
+Then give your coding agent the folder and ask it to read `SKILL.md` before building. For example:
 
 ```text
 Read SKILL.md and build an interactive miniature bench drill.
@@ -42,6 +50,7 @@ handle and watch the spindle descend. Deliver one standalone HTML file.
 | Path | Purpose |
 | --- | --- |
 | [`SKILL.md`](SKILL.md) | The playbook: construction, interaction, and browser QA. Start here. |
+| `bin.js` | The `npx isom3trics <target>` installer. |
 | [`index.html`](index.html) and [`examples/`](examples/) | Twenty standalone worked examples to inspect and adapt. |
 | [`media/`](media/) | README previews and downloadable MP4 loops. |
 

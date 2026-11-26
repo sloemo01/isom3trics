@@ -1,0 +1,43 @@
+{
+  "name": "isom3trics",
+  "version": "1.0.0",
+  "description": "Agent skill and standalone examples for building interactive isometric Three.js figures of objects and mechanisms.",
+  "type": "module",
+  "bin": {
+    "isom3trics": "bin.js"
+  },
+  "files": [
+    "bin.js",
+    "SKILL.md",
+    "README.md",
+    "LICENSE",
+    "index.html",
+    "gallery.html",
+    "examples/",
+    "media/"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "agent-skill",
+    "agent-skills",
+    "threejs",
+    "webgl",
+    "isometric",
+    "interactive",
+    "skill",
+    "illustration",
+    "3d"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sloemo01/isom3trics.git"
+  },
+  "homepage": "https://github.com/sloemo01/isom3trics#readme",
+  "bugs": {
+    "url": "https://github.com/sloemo01/isom3trics/issues"
+  },
+  "author": "Nehal Kanak",
+  "license": "MIT"
+}
