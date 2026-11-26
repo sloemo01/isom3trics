@@ -1,6 +1,6 @@
 <h1 align="center">isom3trics</h1>
 
-<p align="center"><strong>A skill for building interactive Three.js figures of objects and mechanisms.</strong></p>
+<p align="center"><strong>A skill and copy-in examples for building interactive Three.js figures of objects and mechanisms.</strong></p>
 
 <p align="center">
 <a href="media/animated/computer.mp4"><img src="media/animated/computer.gif" width="23%" alt="Computer with CRT, keyboard, and mouse"></a>
@@ -8,15 +8,19 @@
 <a href="media/animated/coffee-machine.mp4"><img src="media/animated/coffee-machine.gif" width="23%" alt="Coffee machine with a cup and steam wand"></a>
 <a href="media/animated/desk-fan.mp4"><img src="media/animated/desk-fan.gif" width="23%" alt="Desk fan with three blades and a wire guard"></a>
 </p>
-<p align="center"><sub><b>Computer</b> &nbsp;·&nbsp; <b>Robotic arm</b> &nbsp;·&nbsp; <b>Coffee machine</b> &nbsp;·&nbsp; <b>Desk fan</b> &nbsp;·&nbsp; click a tile for the MP4</sub></p>
+<p align="center"><sub><b>Computer</b> &nbsp;·&nbsp; <b>Robotic arm</b> &nbsp;·&nbsp; <b>Coffee machine</b> &nbsp;·&nbsp; <b>Desk fan</b><br>Four figures built with the skill. Each tile loops through a full orbit; click one for the square MP4.</sub></p>
 
-<p align="center"><b><a href="#install">Install</a></b> &nbsp;·&nbsp; <b><a href="#update">Update</a></b> &nbsp;·&nbsp; <a href="#figures">Figures</a> &nbsp;·&nbsp; <a href="#credits">Credits</a></p>
+<p align="center"><b><a href="#install-it-in-one-prompt">Install it in one prompt</a></b> &nbsp;·&nbsp; <b><a href="#update-it-in-one-prompt">Update it in one prompt</a></b> &nbsp;·&nbsp; <a href="#what-it-makes">What it makes</a> &nbsp;·&nbsp; <a href="#how-it-works">How it works</a> &nbsp;·&nbsp; <a href="#worked-examples">Worked examples</a> &nbsp;·&nbsp; <a href="#verification">Verification</a></p>
 
-Give a coding agent an object or mechanism to model. The skill covers the parts, their physical connections, the controls, and the checks. A vise handle turns and moves the jaw; a sewing machine handwheel drives the needle and feed. Each figure ships as one standalone HTML file with no build step.
+## What it makes
 
-## Install
+Give a coding agent an object or mechanism to model. The skill guides it from the parts and their physical connections to a rotatable Three.js figure with hands-on controls. A vise handle turns and moves the jaw; a sewing machine handwheel drives the needle and feed. The same model state drives pointer input, keyboard input, and readouts.
 
-Paste this into an agent that can run shell commands.
+Each figure ships as one standalone HTML file. Three.js loads from a CDN; the geometry, controls, and rendering code are inline. No build step is required.
+
+## Install it in one prompt
+
+Paste this into an agent that can run shell commands. It asks where the folder should go, installs the published package, proves the install, reads `SKILL.md`, and reports back before building anything.
 
 ```
 Install the isom3trics skill here, then use it to build figures.
@@ -30,7 +34,17 @@ Install the isom3trics skill here, then use it to build figures.
 4. Read SKILL.md and the closest worked example, then ask me what to build.
 ```
 
-## Update
+Under the prompt, the command on its own is enough:
+
+```bash
+npx --yes isom3trics@latest ./skills/isom3trics
+```
+
+It writes `SKILL.md`, the twenty examples, the gallery and the previews into the target, adds no dependencies, and runs nothing afterwards. `--list` prints what would be copied; `--force` overwrites an existing install.
+
+## Update it in one prompt
+
+Paste this into an agent for a copy that is already installed. It backs the folder up, refreshes it from the registry, and reports what changed before any figure is touched.
 
 ```
 Update my isom3trics install and report what changed.
@@ -41,17 +55,56 @@ Update my isom3trics install and report what changed.
 3. Confirm the version and the 45-file count, then report what changed.
 ```
 
-The bare command is `npx --yes isom3trics@latest ./skills/isom3trics`. It writes the skill, twenty examples, the gallery and the previews, and adds nothing to install. `--list` previews the copy.
+## How it works
 
-## Figures
+1. **Plan the mechanism.** Identify the fixed supports, moving parts, pivot axes, travel limits, and contacts that must stay seated.
+2. **Build the figure.** Copy the closest worked example, replace its model factory, and keep the renderer and figure plate. The plate provides orbit, zoom, rotation lock, and optional palettes.
+3. **Connect the controls.** Tie direct manipulation and native controls to the same state, with keyboard access and a repeatable reset.
+4. **Test and repair.** Exercise the actual controls, check critical joints from multiple angles, and rerun failed checks after fixing them.
 
-[Personal computer](index.html) · [Bench vise](examples/bench-vise.html) · [Portable radio](examples/portable-radio.html) · [Stovetop espresso maker](examples/espresso-maker.html) · [Robotic arm](examples/robotic-arm.html) · [Coffee machine](examples/coffee-machine.html) · [Dial indicator](examples/dial-indicator.html) · [Microscope](examples/microscope.html) · [Laboratory balance](examples/laboratory-balance.html) · [Rotary encoder](examples/rotary-encoder.html) · [Desk fan](examples/desk-fan.html) · [Cassette player](examples/cassette-player.html) · [Camera lens](examples/camera-lens.html) · [Turntable](examples/turntable.html) · [Sewing machine](examples/sewing-machine.html) · [Film projector](examples/film-projector.html) · [Hydraulic jack](examples/hydraulic-jack.html) · [Water valve](examples/water-valve.html) · [Hand-crank drill](examples/hand-crank-drill.html) · [Drafting compass](examples/drafting-compass.html)
+## What is in here
 
-Serve the repo with `python3 -m http.server 8000` and open a page; Three.js needs a connection.
+| Path | Purpose |
+| --- | --- |
+| [`SKILL.md`](SKILL.md) | The playbook: construction, interaction, and browser QA. Start here. |
+| `bin.js` | The `npx isom3trics <target>` installer. |
+| [`index.html`](index.html) and [`examples/`](examples/) | Twenty standalone worked examples to inspect and adapt. |
+| [`media/`](media/) | README previews and downloadable MP4 loops. |
+
+## Worked examples
+
+1. [Personal computer](index.html) — Press the keyboard and slide the wired mouse.
+2. [Bench vise](examples/bench-vise.html) — Turn the screw to close the jaws.
+3. [Portable radio](examples/portable-radio.html) — Tune the dial and turn the volume knob.
+4. [Stovetop espresso maker](examples/espresso-maker.html) — Lift the hinged lid.
+5. [Robotic arm](examples/robotic-arm.html) — Swivel the base, bend the elbow, and close the gripper.
+6. [Coffee machine](examples/coffee-machine.html) — Pull a shot and swing the steam wand.
+7. [Dial indicator](examples/dial-indicator.html) — Inspect the probe and dial.
+8. [Microscope](examples/microscope.html) — Operate the focusing assembly.
+9. [Laboratory balance](examples/laboratory-balance.html) — Change the load and watch the reading.
+10. [Rotary encoder](examples/rotary-encoder.html) — Inspect the shaft and rotary readout.
+11. [Desk fan](examples/desk-fan.html) — Operate the fan.
+12. [Cassette player](examples/cassette-player.html) — Operate the tape transport.
+13. [Camera lens](examples/camera-lens.html) — Adjust the lens from its control ring.
+14. [Turntable](examples/turntable.html) — Operate the record deck.
+15. [Sewing machine](examples/sewing-machine.html) — Work the needle mechanism.
+16. [Film projector](examples/film-projector.html) — Operate the reel mechanism.
+17. [Hydraulic jack](examples/hydraulic-jack.html) — Raise and lower the saddle.
+18. [Water valve](examples/water-valve.html) — Adjust the valve opening.
+19. [Hand-crank drill](examples/hand-crank-drill.html) — Turn the crank.
+20. [Drafting compass](examples/drafting-compass.html) — Adjust the span.
+
+To run an example locally, serve the repository with `python3 -m http.server 8000` and open the corresponding HTML path. Three.js requires an internet connection.
+
+## Verification
+
+The skill calls for Playwright checks against the served page: exercise the real input path, verify part motion and reset, and inspect desktop and phone layouts. For moving assemblies, check attachment and clearance through the full range. Review screenshots from multiple angles and discard temporary QA images afterward.
 
 ## Credits
 
-[Diorama](https://github.com/sloemo01/diorama) is the parent project. [Anatomy](https://github.com/wheresryan22/anatomy) inspired the figure plates, controls and palettes. Thanks to [GMI Cloud](https://www.gmicloud.ai/) for free credits.
+- [Diorama](https://github.com/sloemo01/diorama) is the parent project.
+- [Anatomy](https://github.com/wheresryan22/anatomy) inspired the figure plates, controls, and colour palettes.
+- Thanks to [GMI Cloud](https://www.gmicloud.ai/) for free credits. See [GMI Cloud’s console](https://console.gmicloud.ai/) for current offers.
 
 ## License
 
