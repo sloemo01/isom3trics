@@ -1,6 +1,6 @@
 <h1 align="center">isom3trics</h1>
 
-<p align="center"><strong>Twenty interactive Three.js miniatures. Turn a dial, work a lever, or orbit the model.</strong></p>
+<p align="center"><strong>A skill and copy-in examples for building interactive Three.js figures of objects and mechanisms.</strong></p>
 
 <p align="center">
 <a href="media/computer-preview.jpg"><img src="media/computer-preview.jpg" width="23%" alt="Computer with CRT, keyboard, and mouse"></a>
@@ -10,17 +10,42 @@
 </p>
 <p align="center"><sub><b>Computer</b> &nbsp;·&nbsp; <b>Robotic arm</b> &nbsp;·&nbsp; <b>Coffee machine</b> &nbsp;·&nbsp; <b>Desk fan</b></sub></p>
 
-Four fixed-angle previews. The examples below are interactive. Each is a standalone HTML page; Three.js loads from a CDN, with no build step.
+These four figures were built with the skill. Click any tile for the full-size still.
 
-## Credits
+[Use the skill](#use-the-skill) · [How it works](#how-it-works) · [Worked examples](#worked-examples) · [Verification](#verification)
 
-- [Diorama](https://github.com/sloemo01/diorama) is the parent project.
-- [Anatomy](https://github.com/wheresryan22/anatomy) inspired the figure plates, controls, and colour palettes.
-- Thanks to [GMI Cloud](https://www.gmicloud.ai/) for free credits. See [GMI Cloud’s console](https://console.gmicloud.ai/) for current offers.
+## What it makes
 
-## Examples
+Give a coding agent an object or mechanism to model. The skill guides it from the parts and their physical connections to a rotatable Three.js figure with hands-on controls. A vise handle turns and moves the jaw; a sewing machine handwheel drives the needle and feed. The same model state drives pointer input, keyboard input, and readouts.
 
-Browse the [gallery](gallery.html), or open a figure directly:
+Each figure ships as one standalone HTML file. Three.js loads from a CDN; the geometry, controls, and rendering code are inline. No build step is required.
+
+## Use the skill
+
+Give your coding agent this repository and ask it to read [`SKILL.md`](SKILL.md) before building. For example:
+
+```text
+Read SKILL.md and build an interactive miniature bench drill.
+Use the closest worked example as a starting point. Let me turn the feed
+handle and watch the spindle descend. Deliver one standalone HTML file.
+```
+
+## How it works
+
+1. **Plan the mechanism.** Identify the fixed supports, moving parts, pivot axes, travel limits, and contacts that must stay seated.
+2. **Build the figure.** Copy the closest worked example, replace its model factory, and keep the renderer and figure plate. The plate provides orbit, zoom, rotation lock, and optional palettes.
+3. **Connect the controls.** Tie direct manipulation and native controls to the same state, with keyboard access and a repeatable reset.
+4. **Test and repair.** Exercise the actual controls, check critical joints from multiple angles, and rerun failed checks after fixing them.
+
+## What is in here
+
+| Path | Purpose |
+| --- | --- |
+| [`SKILL.md`](SKILL.md) | The playbook: construction, interaction, and browser QA. Start here. |
+| [`index.html`](index.html) and [`examples/`](examples/) | Twenty standalone worked examples to inspect and adapt. |
+| [`media/`](media/) | Fixed-angle README previews. |
+
+## Worked examples
 
 1. [Personal computer](index.html) — Press the keyboard and slide the wired mouse.
 2. [Bench vise](examples/bench-vise.html) — Turn the screw to close the jaws.
@@ -43,22 +68,17 @@ Browse the [gallery](gallery.html), or open a figure directly:
 19. [Hand-crank drill](examples/hand-crank-drill.html) — Turn the crank.
 20. [Drafting compass](examples/drafting-compass.html) — Adjust the span.
 
-Run `python3 -m http.server 8000` from this directory and open `http://localhost:8000/gallery.html`. Each page has an [Anatomy](https://github.com/wheresryan22/anatomy)-inspired figure plate with a full-width 3D stage, footer readout, and controls below the caption. The sliders and buttons control the same model as direct manipulation. Use the padlock at the bottom right of the plate to freeze rotation while you interact with parts. Zoom still works, and R resets the view without unlocking it. Drag to orbit, scroll to zoom, or focus the canvas and use the arrow keys to rotate and **R** to reset. Three.js requires an internet connection.
+To run an example locally, serve the repository with `python3 -m http.server 8000` and open the corresponding HTML path. Three.js requires an internet connection.
 
-Drag a working part to move it, or drag empty space to orbit. On desktop, a grab cursor marks draggable parts.
+## Verification
 
-- Computer: press any key or mouse button; drag the mouse shell to slide it. Click the screen to toggle power.
-- Vise: drag an end of the cross handle in a circle to spin it and shift the jaw.
-- Radio: drag either knob sideways to turn it; the large knob moves the tuning needle.
-- Stovetop pot: drag the lid upward or tap it to open it.
-- Robot: drag the upper arm sideways to swivel the base, or the forearm vertically to bend the elbow. Tap the forearm to jog it and the gripper to open or close it.
-- Coffee machine: press the left button to brew, hold the next button for steam, and drag the steam wand sideways to swing it.
+The skill calls for Playwright checks against the served page: exercise the real input path, verify part motion and reset, and inspect desktop and phone layouts. For moving assemblies, check attachment and clearance through the full range. Review screenshots from multiple angles and discard temporary QA images afterward.
 
-With the canvas focused, **Enter/Space** activates the default or selected action. **[ / ]** select a control, **− / +** adjust it, and **R** resets the model and camera.
+## Credits
 
-## Use the skill
-
-Read [`SKILL.md`](SKILL.md), then copy the closest example and replace its model factory. Keep the standalone renderer and figure plate.
+- [Diorama](https://github.com/sloemo01/diorama) is the parent project.
+- [Anatomy](https://github.com/wheresryan22/anatomy) inspired the figure plates, controls, and colour palettes.
+- Thanks to [GMI Cloud](https://www.gmicloud.ai/) for free credits. See [GMI Cloud’s console](https://console.gmicloud.ai/) for current offers.
 
 ## License
 
