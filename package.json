@@ -1,6 +1,6 @@
 {
   "name": "isom3trics",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Agent skill and standalone examples for building interactive isometric Three.js figures of objects and mechanisms.",
   "type": "module",
   "bin": {
