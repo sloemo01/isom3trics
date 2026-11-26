@@ -11,10 +11,10 @@ Create a **single HTML file containing one colored, rotatable component**. The b
 
 ## Required format
 
-- `index.html` is the main component. Additional standalone pages such as `lamp.html`, `plant.html` and `controller.html` are independent examples, not an application or gallery.
+- `index.html` is the example component: one standalone miniature computer.
 - No React, npm, `package.json`, bundler, source tree, template directory, test harness, design documents or development dependencies.
 - The visible page is one full-viewport canvas. No headings, captions, controls, navigation, text textures, labels or watermark.
-- Keep only the HTML examples, `SKILL.md`, `README.md` and `LICENSE`.
+- Keep only `index.html`, `SKILL.md`, `README.md` and `LICENSE`.
 - Use native ES modules, absolute CDN imports for official helpers, and one small browser import map resolving the helpers' own `three` dependency. This is native browser resolution, not an npm setup.
 
 ```js
@@ -35,7 +35,7 @@ Use `OrbitControls` with an orthographic camera. Drag/touch to orbit, scroll/pin
 
 ## Building another component
 
-Copy the closest standalone HTML and replace only its `create…(look)` factory. Keep the renderer, controls and CSS unchanged. Model the complete object: back, underside, attachments and contact points. Use beveled primary masses, functional secondary assemblies and a small coherent color family. No downloaded geometry unless separately requested.
+Copy `index.html` and replace only its `createComputer(look)` factory. Keep the renderer, controls and CSS unchanged. Model the complete object: back, underside, attachments and contact points. Use beveled primary masses, functional secondary assemblies and a small coherent color family. No downloaded geometry unless separately requested.
 
 For a staged scene, add a slab and a few supporting objects only when requested. Do not add surrounding HTML to present the scene.
 
