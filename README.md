@@ -3,14 +3,14 @@
 <p align="center"><strong>A skill and copy-in examples for building interactive Three.js figures of objects and mechanisms.</strong></p>
 
 <p align="center">
-<a href="media/computer-preview.jpg"><img src="media/computer-preview.jpg" width="23%" alt="Computer with CRT, keyboard, and mouse"></a>
-<a href="media/robotic-arm-preview.jpg"><img src="media/robotic-arm-preview.jpg" width="23%" alt="Robotic arm with two-finger gripper"></a>
-<a href="media/coffee-machine-preview.jpg"><img src="media/coffee-machine-preview.jpg" width="23%" alt="Coffee machine with a cup and steam wand"></a>
-<a href="media/desk-fan-preview.jpg"><img src="media/desk-fan-preview.jpg" width="23%" alt="Desk fan with three blades and a wire guard"></a>
+<a href="media/animated/computer.mp4"><img src="media/animated/computer.gif" width="23%" alt="Computer with CRT, keyboard, and mouse"></a>
+<a href="media/animated/robotic-arm.mp4"><img src="media/animated/robotic-arm.gif" width="23%" alt="Robotic arm with two-finger gripper"></a>
+<a href="media/animated/coffee-machine.mp4"><img src="media/animated/coffee-machine.gif" width="23%" alt="Coffee machine with a cup and steam wand"></a>
+<a href="media/animated/desk-fan.mp4"><img src="media/animated/desk-fan.gif" width="23%" alt="Desk fan with three blades and a wire guard"></a>
 </p>
 <p align="center"><sub><b>Computer</b> &nbsp;·&nbsp; <b>Robotic arm</b> &nbsp;·&nbsp; <b>Coffee machine</b> &nbsp;·&nbsp; <b>Desk fan</b></sub></p>
 
-These four figures were built with the skill. Click any tile for the full-size still.
+These four figures were built with the skill. Each tile loops through a full orbit. Click a tile for the square MP4.
 
 [Use the skill](#use-the-skill) · [How it works](#how-it-works) · [Worked examples](#worked-examples) · [Verification](#verification)
 
@@ -43,7 +43,7 @@ handle and watch the spindle descend. Deliver one standalone HTML file.
 | --- | --- |
 | [`SKILL.md`](SKILL.md) | The playbook: construction, interaction, and browser QA. Start here. |
 | [`index.html`](index.html) and [`examples/`](examples/) | Twenty standalone worked examples to inspect and adapt. |
-| [`media/`](media/) | Fixed-angle README previews. |
+| [`media/`](media/) | README previews and downloadable MP4 loops. |
 
 ## Worked examples
 
