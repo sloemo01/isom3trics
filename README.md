@@ -3,16 +3,14 @@
 <p align="center"><strong>Twenty interactive Three.js miniatures. Turn a dial, work a lever, or orbit the model.</strong></p>
 
 <p align="center">
-<a href="media/microscope-square.jpg"><img src="media/microscope-square.jpg" width="31%" alt="Microscope in three-quarter view"></a>
-<a href="media/cassette-player-square.jpg"><img src="media/cassette-player-square.jpg" width="31%" alt="Cassette player with visible reels"></a>
-<a href="media/camera-lens-square.jpg"><img src="media/camera-lens-square.jpg" width="31%" alt="Camera lens with a ribbed barrel"></a>
+<a href="media/microscope-square.jpg"><img src="media/microscope-square.jpg" width="23%" alt="Microscope in three-quarter view"></a>
+<a href="media/cassette-player-square.jpg"><img src="media/cassette-player-square.jpg" width="23%" alt="Cassette player with visible reels"></a>
+<a href="media/sewing-machine-square.jpg"><img src="media/sewing-machine-square.jpg" width="23%" alt="Sewing machine with its handwheel and needle assembly"></a>
+<a href="media/hydraulic-jack-square.jpg"><img src="media/hydraulic-jack-square.jpg" width="23%" alt="Hydraulic bottle jack with its pump lever"></a>
 </p>
-<p align="center">
-<a href="media/sewing-machine-square.jpg"><img src="media/sewing-machine-square.jpg" width="31%" alt="Sewing machine with its handwheel and needle assembly"></a>
-<a href="media/hydraulic-jack-square.jpg"><img src="media/hydraulic-jack-square.jpg" width="31%" alt="Hydraulic bottle jack with its pump lever"></a>
-</p>
+<p align="center"><sub><b>Microscope</b> &nbsp;·&nbsp; <b>Cassette player</b> &nbsp;·&nbsp; <b>Sewing machine</b> &nbsp;·&nbsp; <b>Hydraulic jack</b></sub></p>
 
-Five fixed-angle previews. The examples below are interactive. Each is a standalone HTML page; Three.js loads from a CDN, with no build step.
+Four fixed-angle previews. The examples below are interactive. Each is a standalone HTML page; Three.js loads from a CDN, with no build step.
 
 ## Credits
 
