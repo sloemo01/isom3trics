@@ -3,12 +3,12 @@
 <p align="center"><strong>Twenty interactive Three.js miniatures. Turn a dial, work a lever, or orbit the model.</strong></p>
 
 <p align="center">
-<a href="media/microscope-square.jpg"><img src="media/microscope-square.jpg" width="23%" alt="Microscope in three-quarter view"></a>
-<a href="media/cassette-player-square.jpg"><img src="media/cassette-player-square.jpg" width="23%" alt="Cassette player with visible reels"></a>
-<a href="media/sewing-machine-square.jpg"><img src="media/sewing-machine-square.jpg" width="23%" alt="Sewing machine with its handwheel and needle assembly"></a>
-<a href="media/hydraulic-jack-square.jpg"><img src="media/hydraulic-jack-square.jpg" width="23%" alt="Hydraulic bottle jack with its pump lever"></a>
+<a href="media/computer-square.jpg"><img src="media/computer-square.jpg" width="23%" alt="Computer with CRT, keyboard, and mouse"></a>
+<a href="media/robotic-arm-square.jpg"><img src="media/robotic-arm-square.jpg" width="23%" alt="Robotic arm with two-finger gripper"></a>
+<a href="media/coffee-machine-square.jpg"><img src="media/coffee-machine-square.jpg" width="23%" alt="Coffee machine with a cup and steam wand"></a>
+<a href="media/desk-fan-square.jpg"><img src="media/desk-fan-square.jpg" width="23%" alt="Desk fan with three blades and a wire guard"></a>
 </p>
-<p align="center"><sub><b>Microscope</b> &nbsp;·&nbsp; <b>Cassette player</b> &nbsp;·&nbsp; <b>Sewing machine</b> &nbsp;·&nbsp; <b>Hydraulic jack</b></sub></p>
+<p align="center"><sub><b>Computer</b> &nbsp;·&nbsp; <b>Robotic arm</b> &nbsp;·&nbsp; <b>Coffee machine</b> &nbsp;·&nbsp; <b>Desk fan</b></sub></p>
 
 Four fixed-angle previews. The examples below are interactive. Each is a standalone HTML page; Three.js loads from a CDN, with no build step.
 
@@ -60,4 +60,6 @@ With the canvas focused, **Enter/Space** activates the default or selected actio
 
 Read [`SKILL.md`](SKILL.md), then copy the closest example and replace its model factory. Keep the standalone renderer and figure plate.
 
-MIT licensed; see [`LICENSE`](LICENSE).
+## License
+
+[MIT License](LICENSE).
