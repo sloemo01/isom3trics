@@ -8,11 +8,9 @@
 <a href="media/animated/coffee-machine.mp4"><img src="media/animated/coffee-machine.gif" width="23%" alt="Coffee machine with a cup and steam wand"></a>
 <a href="media/animated/desk-fan.mp4"><img src="media/animated/desk-fan.gif" width="23%" alt="Desk fan with three blades and a wire guard"></a>
 </p>
-<p align="center"><sub><b>Computer</b> &nbsp;·&nbsp; <b>Robotic arm</b> &nbsp;·&nbsp; <b>Coffee machine</b> &nbsp;·&nbsp; <b>Desk fan</b></sub></p>
+<p align="center"><sub><b>Computer</b> &nbsp;·&nbsp; <b>Robotic arm</b> &nbsp;·&nbsp; <b>Coffee machine</b> &nbsp;·&nbsp; <b>Desk fan</b><br>Four figures built with the skill. Each tile loops through a full orbit; click one for the square MP4.</sub></p>
 
-These four figures were built with the skill. Each tile loops through a full orbit. Click a tile for the square MP4.
-
-[Use the skill](#use-the-skill) · [How it works](#how-it-works) · [Worked examples](#worked-examples) · [Verification](#verification)
+<p align="center"><b><a href="#install-it-in-one-prompt">Install it in one prompt</a></b> &nbsp;·&nbsp; <b><a href="#update-it-in-one-prompt">Update it in one prompt</a></b> &nbsp;·&nbsp; <a href="#what-it-makes">What it makes</a> &nbsp;·&nbsp; <a href="#how-it-works">How it works</a> &nbsp;·&nbsp; <a href="#worked-examples">Worked examples</a> &nbsp;·&nbsp; <a href="#verification">Verification</a></p>
 
 ## What it makes
 
@@ -20,22 +18,79 @@ Give a coding agent an object or mechanism to model. The skill guides it from th
 
 Each figure ships as one standalone HTML file. Three.js loads from a CDN; the geometry, controls, and rendering code are inline. No build step is required.
 
-## Use the skill
+## Install it in one prompt
 
-Install it with npm, or copy the folder by hand:
+Paste this into an agent that can run shell commands. It asks where the folder should go, installs the published package, proves the install, reads `SKILL.md`, and reports back before building anything.
 
-```bash
-npx isom3trics ./skills/isom3trics
+```
+Install the isom3trics skill, then use it to build figures.
+
+Package: https://www.npmjs.com/package/isom3trics
+
+1. Ask me where the skill folder should go before installing anything,
+   and wait for my answer. Propose ./skills/isom3trics as the default.
+   Do not pick a path silently.
+2. Install from the registry only. Do not clone the GitHub repository or
+   unpack an archive instead: the npm download count is how this project
+   tracks real installs.
+     npx --yes isom3trics@latest "<target>"
+   Add --list to preview the copy. If <target> already has files, ask me
+   before adding --force. If npm or node 18+ is missing, say so and stop.
+3. Prove the install before describing it, and print what you ran:
+     npx --yes isom3trics@latest --version
+     ls "<target>"
+     find "<target>" -type f | wc -l
+   The count must match the 45 files the installer printed. If a check
+   fails, say so and stop. Never describe this skill from memory.
+4. Read before you build: all of SKILL.md, then the worked example
+   closest to my subject.
+5. Report back in this order: install path and version, the parts of a
+   figure in one paragraph, the build loop as ordered steps, and the
+   checks SKILL.md requires before delivery.
+6. Then ask me what the first figure should be. When I give you a
+   subject, copy the closest example, replace its model factory, keep
+   the renderer and figure plate, and run the Playwright checks before
+   you show me anything.
+
+If two parts of SKILL.md contradict each other, list them before you
+build. A successful npx is not an install: 3 and 4 are it.
 ```
 
-That writes `SKILL.md`, the twenty examples, the gallery and the previews into the target. It adds no dependencies and runs nothing afterwards. `--list` prints what would be copied, and `--force` overwrites an existing install.
+Under the prompt, the command on its own is enough:
 
-Then give your coding agent the folder and ask it to read `SKILL.md` before building. For example:
+```bash
+npx --yes isom3trics@latest ./skills/isom3trics
+```
 
-```text
-Read SKILL.md and build an interactive miniature bench drill.
-Use the closest worked example as a starting point. Let me turn the feed
-handle and watch the spindle descend. Deliver one standalone HTML file.
+It writes `SKILL.md`, the twenty examples, the gallery and the previews into the target, adds no dependencies, and runs nothing afterwards. `--list` prints what would be copied; `--force` overwrites an existing install.
+
+## Update it in one prompt
+
+Paste this into an agent for a copy that is already installed. It backs the folder up, refreshes it from the registry, and reports what changed before any figure is touched.
+
+```
+Update my isom3trics install, then report what changed.
+
+Package: https://www.npmjs.com/package/isom3trics
+
+1. Ask me for the folder before touching anything, and wait.
+2. Print the new version and make the update reversible:
+     npx --yes isom3trics@latest --version
+     cp -R "<target>" "<target>.bak"
+   Keep the copy until I say the update is good.
+3. Refresh in place from the registry:
+     npx --yes isom3trics@latest "<target>" --force
+   No git pull and no archive: the npm download count is how this
+   project tracks real installs.
+4. Prove it before describing it: print the version, confirm the same
+   paths still exist, and confirm the file count matches what the
+   installer printed. If the refresh failed, say so and stop.
+5. Report the difference in this order: version jump, new or removed
+   examples, rules that changed in SKILL.md, and which of my own files
+   inside <target> differ from the new ones. Re-apply my edits only when
+   the difference is clean, and say so when it is not.
+6. If one of my figures is mid-build, reread SKILL.md and list the rules
+   that now affect that figure. Do not rewrite it without asking me.
 ```
 
 ## How it works
