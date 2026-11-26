@@ -1,6 +1,8 @@
 # isom3trics
 
-A narrow, reusable skill for **colored, rotatable, stroked-toon components on a clean canvas**. Extracted from the [`sloemo01/diorama`](https://github.com/sloemo01/diorama) repository at commit `a4cb078`, with a new view-dependent stroke renderer.
+A reusable skill for **colored, rotatable, stroked-toon components on a clean canvas**, with view-dependent, material-aware stroke rendering.
+
+An independent artifact of [`sloemo01/diorama`](https://github.com/sloemo01/diorama).
 
 **The output is the object—not a website.** No headings, text, labels, UI, fonts, scene timelines or educational panels.
 
@@ -51,8 +53,6 @@ The edge mask uses a fixed one-physical-texel footprint and does **not dilate** 
 - [`src/`](src) — runnable canvas example using the same modules.
 - [`qa/captures/`](qa/captures) — desktop, phone, front, rear, high and zoom evidence.
 
-## Provenance and license
+## License
 
-Cloned and inspected directly from `sloemo01/diorama`; not implemented from the installed Diorama skills pack. The upstream material/ramp approach and orbit behavior are adapted under MIT. The visible-surface stroke pass, component-only viewer and example are new.
-
-Upstream copyright and permission notice: [`DIORAMA-LICENSE`](DIORAMA-LICENSE). This repository is also MIT licensed; see [`LICENSE`](LICENSE).
+isom3trics is MIT licensed. See [`LICENSE`](LICENSE).

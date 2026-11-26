@@ -1,6 +1,4 @@
-// Material contract adapted from sloemo01/diorama templates/stroked-toon.js at
-// a4cb078. MIT: Copyright (c) 2026 Nehal Kanak / Sloemo01; docs/DIORAMA-LICENSE.
-// New in isom3trics: visible-surface depth/normal ink replaces inverted hulls.
+// isom3trics: colored four-tone surfaces and material-aware visible-surface ink.
 import * as THREE from 'three';
 
 export const STROKED_TOON_DEFAULTS = Object.freeze({

@@ -19,7 +19,7 @@ function fakeRenderer() {
   };
 }
 
-test('retains upstream four-tone ramp and native rendering settings', () => {
+test('uses a four-tone ramp and native rendering settings', () => {
   const ramp = makeToonRamp();
   assert.deepEqual([...ramp.image.data], [88, 145, 205, 255]);
   assert.equal(ramp.minFilter, THREE.NearestFilter);

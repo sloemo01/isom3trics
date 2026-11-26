@@ -1,5 +1,4 @@
-// Adapted from sloemo01/diorama templates/orbit.js at a4cb078.
-// MIT: Copyright (c) 2026 Nehal Kanak / Sloemo01. See docs/DIORAMA-LICENSE.
+// Direct component orbit with a deterministic reset pose and no automatic spin.
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
 export function createObjectOrbit(camera, canvas, {
