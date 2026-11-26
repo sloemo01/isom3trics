@@ -3,10 +3,10 @@
 <p align="center"><strong>Twenty interactive Three.js miniatures. Turn a dial, work a lever, or orbit the model.</strong></p>
 
 <p align="center">
-<a href="media/computer-square.jpg"><img src="media/computer-square.jpg" width="23%" alt="Computer with CRT, keyboard, and mouse"></a>
-<a href="media/robotic-arm-square.jpg"><img src="media/robotic-arm-square.jpg" width="23%" alt="Robotic arm with two-finger gripper"></a>
-<a href="media/coffee-machine-square.jpg"><img src="media/coffee-machine-square.jpg" width="23%" alt="Coffee machine with a cup and steam wand"></a>
-<a href="media/desk-fan-square.jpg"><img src="media/desk-fan-square.jpg" width="23%" alt="Desk fan with three blades and a wire guard"></a>
+<a href="media/computer-preview.jpg"><img src="media/computer-preview.jpg" width="23%" alt="Computer with CRT, keyboard, and mouse"></a>
+<a href="media/robotic-arm-preview.jpg"><img src="media/robotic-arm-preview.jpg" width="23%" alt="Robotic arm with two-finger gripper"></a>
+<a href="media/coffee-machine-preview.jpg"><img src="media/coffee-machine-preview.jpg" width="23%" alt="Coffee machine with a cup and steam wand"></a>
+<a href="media/desk-fan-preview.jpg"><img src="media/desk-fan-preview.jpg" width="23%" alt="Desk fan with three blades and a wire guard"></a>
 </p>
 <p align="center"><sub><b>Computer</b> &nbsp;·&nbsp; <b>Robotic arm</b> &nbsp;·&nbsp; <b>Coffee machine</b> &nbsp;·&nbsp; <b>Desk fan</b></sub></p>
 
