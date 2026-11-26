@@ -21,40 +21,24 @@ Paste this into an agent that can run shell commands.
 ```
 Install the isom3trics skill here, then use it to build figures.
 
-Package: https://www.npmjs.com/package/isom3trics
-
-1. Ask me where the folder should go before installing anything, and wait
-   for my answer. Propose ./skills/isom3trics, and do not pick a path silently.
-2. Install from the registry only, never a clone or an unpacked archive:
+1. Ask me where the folder should go, and wait. Propose ./skills/isom3trics.
+2. Install from the registry only, never a clone:
      npx --yes isom3trics@latest "<target>"
-   If the folder already has files, ask me before adding --force.
-3. Prove the install before describing it, and print what you ran:
-     npx --yes isom3trics@latest --version
-     find "<target>" -type f | wc -l
-   Expect 45 files. If the count differs, say so and stop. Never describe
-   this skill from memory.
-4. Read all of SKILL.md, then the worked example closest to my subject.
-5. Report back with the install path and version, the parts of a figure,
-   the build loop, and the checks SKILL.md requires before delivery.
-6. Then ask me what the first figure should be. When I answer, copy the
-   closest example, replace its model factory, keep the renderer and plate,
-   and run the Playwright checks before you show me anything.
+3. Prove it before describing it: --version, then
+     find "<target>" -type f | wc -l     # expect 45
+   If the count differs, say so and stop.
+4. Read SKILL.md and the closest worked example, then ask me what to build.
 ```
 
 ## Update
 
 ```
-Update my isom3trics install, then report what changed.
+Update my isom3trics install and report what changed.
 
-1. Ask me for the folder and wait. Print the new version, then make the
-   update reversible with cp -R "<target>" "<target>.bak".
-2. Refresh in place from the registry:
+1. Ask for the folder, then back it up: cp -R "<target>" "<target>.bak".
+2. Refresh it from the registry:
      npx --yes isom3trics@latest "<target>" --force
-3. Prove it: same paths still exist, and the file count matches what the
-   installer printed. If the refresh failed, say so and stop.
-4. Report the version jump, new or removed examples, rules that changed in
-   SKILL.md, and which of my own files differ from the new ones. Re-apply my
-   edits only when the difference is clean.
+3. Confirm the version and the 45-file count, then report what changed.
 ```
 
 The bare command is `npx --yes isom3trics@latest ./skills/isom3trics`. It writes the skill, twenty examples, the gallery and the previews, and adds nothing to install. `--list` previews the copy.
